@@ -1,0 +1,1 @@
+-HRD tidak boleh memiliki akses untuk CRUD soal dan loker

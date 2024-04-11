@@ -91,6 +91,33 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
+                <div class="card-header">
+                    <h3>Pilihan Ganda</h3>
+                    <h5>Benar <?= $jawabanPG[intval(count($jawabanPG) - 1)]['jumlah_benar'] ?>, Salah <?= $jawabanPG[intval(count($jawabanPG) - 1)]['jumlah_salah'] ?></h5>
+                </div>
+                <div class="card-body">
+                    <div class="pl-lg-4">
+                        <?php $i = 1;
+                        foreach ($jawabanPG as $row) : ?>
+                            <div style="border-bottom: 1px solid #d8dee9;" class="pb-4">
+                                <p style="font-weight: bold;"><?= $i++ ?>. <?= $row['soal_pg'] ?></p>
+                                <p style="font-size:14px;">Jawaban Pelamar : <span style="font-weight: bold;"> (<?= $row['jawaban_pelamar'] ?>) <?= $row['soal_pelamar'] ?></span></p>
+                                <p style="font-size:14px;">Jawaban Benar : <span style="font-weight: bold;"> (<?= $row['kunci_jawaban'] ?>) <?= $row['soal_kuncijawaban'] ?></span></p>
+                                <?php if ($row['status'] == 'benar') : ?>
+                                    <div class="btn btn-success btn-sm">Benar</div>
+                                <?php else : ?>
+                                    <div class="btn btn-danger btn-sm">Salah</div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
                 <div class="card-header"></div>
                 <div class="card-body">
                     <div class="pl-lg-4">
@@ -106,11 +133,11 @@
                                         <td width="50%">
                                             <p><?= $s['isi_soal']; ?></p>
                                         </td>
-                                        <td>                                            
-                                            <span class="btn btn-disabled" ><?= $s['isi_jawaban']; ?></span>
+                                        <td>
+                                            <span class="btn btn-disabled"><?= $s['isi_jawaban']; ?></span>
                                         </td>
                                         <td width="30%">
-                                            <textarea  disabled class="form-control bg-white"><?= $s['isi_keterangan']; ?></textarea>
+                                            <textarea disabled class="form-control bg-white"><?= $s['isi_keterangan']; ?></textarea>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

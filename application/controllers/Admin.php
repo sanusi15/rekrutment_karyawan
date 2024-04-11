@@ -191,8 +191,10 @@ class Admin extends CI_Controller
 		$this->db->from('jawaban_pelamar t1');
 		$this->db->join('soal t2', 't1.id_soal=t2.id_soal');
 		$this->db->where('t1.id_pelamar', $id);
-		$query = $this->db->get()->result_array();
-		$data['jawaban'] = $query;
+		$query1 = $this->db->get()->result_array();
+		$jawabanPG = $this->AdminModel->getJawabanPG($id);
+		$data['jawabanPG'] = $jawabanPG;
+		$data['jawaban'] = $query1;
 		$this->load->view('template/header', $data);
 		$this->load->view('template/sidebar');
 		$this->load->view('admin/listPelamar/jawaban', $data);
@@ -232,6 +234,52 @@ class Admin extends CI_Controller
 		$id = $this->input->post('id');
 		$this->db->where('id_soal', $id);
 		$this->db->delete('soal');
+		echo 'berhasil';
+	}
+
+
+	public function listPG()
+	{
+		$data['title'] = 'Daftar Soal Tes';
+		$data['pg'] = $this->db->get('pg')->result_array();
+		$this->load->view('template/header', $data);
+		$this->load->view('template/sidebar');
+		$this->load->view('admin/pg/index', $data);
+		$this->load->view('template/footer');
+	}
+
+	public function savePG()
+	{
+		$data = [
+			'id_pg' => $this->AdminModel->generateIDPG(),
+			'soal_pg' => $this->input->post('soal'),
+			'a' => $this->input->post('a'),
+			'b' => $this->input->post('b'),
+			'c' => $this->input->post('c'),
+			'd' => $this->input->post('d'),
+			'kunci_jawaban' => $this->input->post('kunci'),
+		];
+		$this->db->insert('pg', $data);
+		$this->session->set_flashdata('msg', 'Data berhasil disimpan');
+		redirect('admin/listPG');
+	}
+
+	public function getPG()
+	{
+		$id = $this->input->post('id');
+		$query = $this->db->get_where('pg', ['id_pg' => $id])->row_array();
+		echo json_encode($query);
+	}
+
+	public function updatePG()
+	{
+		$id = $this->input->post('id_pg');
+		var_dump($id);
+		die;
+		$soal = $this->input->post('soal');
+		$this->db->set('isi_soal', $soal);
+		$this->db->where('id_soal', $id);
+		$this->db->update('soal');
 		echo 'berhasil';
 	}
 

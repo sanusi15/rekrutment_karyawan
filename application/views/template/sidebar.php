@@ -39,6 +39,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url('admin/listPG'); ?>">
+                            <i class="ni ni-bullet-list-67 text-primary"></i>
+                            <span class="nav-link-text">Soal PG</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('admin/report'); ?>">
                             <i class="fas fa-solid fa-print text-danger"></i>
                             <span class="nav-link-text">Laporan</span>

@@ -1,13 +1,14 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Registrasi extends CI_Controller {	
-    public function index()
+class Registrasi extends CI_Controller
+{
+	public function index()
 	{
-        $data['title'] = 'Registrasi';
+		$data['title'] = 'Registrasi';
 		$idloker = $this->input->post('id');
-		$this->session->set_userdata('id_loker',$idloker);
-		$this->load->view('template2/header', $data);		
+		$this->session->set_userdata('id_loker', $idloker);
+		$this->load->view('template2/header', $data);
 		$this->load->view('registrasi/index');
 		$this->load->view('template2/footer');
 	}
@@ -27,11 +28,7 @@ class Registrasi extends CI_Controller {
 		$no_npwp = $this->input->post('no_npwp');
 		$alamat_asli = $this->input->post('alamat_asli');
 		$alamat_domisili = $this->input->post('alamat_domisili');
-		$cv = $this->input->post('cv');
-		$foto = $this->input->post('foto');
 
-
-		
 		$this->form_validation->set_rules('nama_lengkap', 'Nama Lengkap', 'required', [
 			'required' => 'Nama Lengkap harus diisi',
 		]);
@@ -90,6 +87,18 @@ class Registrasi extends CI_Controller {
 			'required' => 'Konfirmasi Password harus diisi',
 			'matches' => 'Konfirmasi Password tidak sesuai dengan Password',
 		]);
+		// $this->form_validation->set_rules('foto', 'Foto', 'required', [
+		// 	'required' => 'Foto harus diisi',
+		// ]);
+		// $this->form_validation->set_rules('cv', 'CV', 'required', [
+		// 	'required' => 'Cv harus diisi',
+		// ]);
+		// $this->form_validation->set_rules('ktp', 'KTP', 'required', [
+		// 	'required' => 'KTP harus diisi',
+		// ]);
+		// $this->form_validation->set_rules('kir', 'KIR', 'required', [
+		// 	'required' => 'Surat keterangan sehat harus diisi',
+		// ]);
 
 
 
@@ -106,7 +115,11 @@ class Registrasi extends CI_Controller {
 				'agama' => form_error('agama'),
 				'kewarganegaraan' => form_error('kewarganegaraan'),
 				'alamat_asli' => form_error('alamat_asli'),
-				'alamat_domisili' => form_error('alamat_domisili'),
+				// 'alamat_domisili' => form_error('alamat_domisili'),
+				// 'foto' => form_error('foto'),
+				// 'ktp' => form_error('ktp'),
+				// 'kir' => form_error('kir'),
+				// 'cv' => form_error('cv'),
 			);
 			$response = [
 				"status" => 'error',
@@ -127,12 +140,12 @@ class Registrasi extends CI_Controller {
 					$numericPart++;
 					$newIdPelamar = 'PL' . str_pad($numericPart, 3, '0', STR_PAD_LEFT);
 				}
-			}else{
+			} else {
 				$newIdPelamar = 'PL001';
 			}
 			$file_name = str_replace('.', '', 'CV_');
 			$config['upload_path']          = './assets/img/cv';
-			$config['allowed_types']        = 'jpeg|jpg|png';
+			$config['allowed_types']        = 'jpeg|jpg|png|pdf';
 			$config['file_name']            = $file_name . $newIdPelamar;
 			$this->upload->initialize($config);
 			if (!$this->upload->do_upload('cv')) {
@@ -141,13 +154,31 @@ class Registrasi extends CI_Controller {
 			$data1 = $this->upload->data();
 			$file_name2 = str_replace('.', '', 'foto_');
 			$config2['upload_path']          = './assets/img/foto';
-			$config2['allowed_types']        = 'jpeg|jpg|png';
+			$config2['allowed_types']        = 'jpeg|jpg|png|pdf';
 			$config2['file_name']            = $file_name2 . $newIdPelamar;
 			$this->upload->initialize($config2);
 			if (!$this->upload->do_upload('foto')) {
 				echo 'foto kosong';
 			}
 			$data2 = $this->upload->data();
+			$file_name3 = str_replace('.', '', 'kir_');
+			$config3['upload_path']          = './assets/img/kir';
+			$config3['allowed_types']        = 'jpeg|jpg|png|pdf';
+			$config3['file_name']            = $file_name3 . $newIdPelamar;
+			$this->upload->initialize($config3);
+			if (!$this->upload->do_upload('kir')) {
+				echo 'kir kosong';
+			}
+			$data3 = $this->upload->data();
+			$file_name4 = str_replace('.', '', 'ktp_');
+			$config4['upload_path']          = './assets/img/ktp';
+			$config4['allowed_types']        = 'jpeg|jpg|png|pdf';
+			$config4['file_name']            = $file_name4 . $newIdPelamar;
+			$this->upload->initialize($config4);
+			if (!$this->upload->do_upload('ktp')) {
+				echo 'ktp kosong';
+			}
+			$data4 = $this->upload->data();
 			$dataPelamar = [
 				'id_pelamar' => $newIdPelamar,
 				'nama_lengkap' => $nama_lengkap,
@@ -166,7 +197,9 @@ class Registrasi extends CI_Controller {
 				'cv' => $data1['file_name'],
 				'foto' => $data2['file_name'],
 				'id_loker' => $this->session->userdata('id_loker'),
-				'status_lamaran' => 'Proses Seleksi'
+				'status_lamaran' => 'Proses Seleksi',
+				'kir' => $data3['file_name'],
+				'ktp' => $data4['file_name'],
 			];
 			$dataAkun = [
 				'username' => $this->input->post('username'),
@@ -176,21 +209,32 @@ class Registrasi extends CI_Controller {
 			];
 			$insert1 = $this->db->insert('pelamar', $dataPelamar);
 			$insert2 = $this->db->insert('users', $dataAkun);
-			if ($insert1 && $insert2) {				
+			if ($insert1 && $insert2) {
 				$nama_perusahaan = $this->input->post('nama_perusahaan[]');
 				$posisi          = $this->input->post('posisi[]');
 				$lama_kerja      = $this->input->post('lama_kerja[]');
 				$alasan_berhenti = $this->input->post('alasan_berhenti[]');
+				// Mengambil data sertifikat yang diunggah
+				$sertifikatFiles = $_FILES['sertifikat'];
+				// Menyimpan lokasi folder tujuan
+				$folderPath = './assets/img/sertifikat/';
 				for ($i = 0; $i < count($nama_perusahaan); $i++) {
-					if($nama_perusahaan[$i] == null){
+					if ($nama_perusahaan[$i] == null) {
 						continue;
-					}else{
+					} else {
+						if (!empty($sertifikatFiles['name'][$i])) {
+							$namaSertifikat = $newIdPelamar . '-at-' . $i . $sertifikatFiles['name'][$i];
+							move_uploaded_file($sertifikatFiles['tmp_name'][$i], $folderPath . $namaSertifikat);
+						} else {
+							$namaSertifikat = '';
+						}
 						$dataRiwayatKerja = array(
 							'id_pelamar'       => $newIdPelamar,
 							'nama_perusahaan'  => $nama_perusahaan[$i],
 							'posisi'           => $posisi[$i],
 							'lama_kerja'       => $lama_kerja[$i],
-							'alasan_berhenti'  => $alasan_berhenti[$i]
+							'alasan_berhenti'  => $alasan_berhenti[$i],
+							'sertifikat' => $namaSertifikat,
 						);
 						$this->db->insert('riwayatkerja_pelamar', $dataRiwayatKerja);
 					}
@@ -209,7 +253,4 @@ class Registrasi extends CI_Controller {
 		$query = $this->db->get('pelamar');
 		return $query->num_rows() > 0;
 	}
-
-
-
 }

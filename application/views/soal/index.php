@@ -130,7 +130,7 @@
                     <div class="col ml--2">
                       <div class="d-flex justify-content-between align-items-center">
                         <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
+                          <h4 class="mb-0 text-sm"></h4>
                         </div>
                         <div class="text-right text-muted">
                           <small>2 hrs ago</small>
@@ -149,7 +149,7 @@
                     <div class="col ml--2">
                       <div class="d-flex justify-content-between align-items-center">
                         <div>
-                          <h4 class="mb-0 text-sm">John Snow</h4>
+                          <h4 class="mb-0 text-sm"></h4>
                         </div>
                         <div class="text-right text-muted">
                           <small>3 hrs ago</small>
@@ -327,6 +327,9 @@
             <div class="row align-items-center">
               <div class="col-8">
                 <h3 class="mb-0">Harap isi sesuai dengan diri anda</h3>
+                <?php if ($this->session->flashdata('message')) : ?>
+                  <div class="flashdata" data-flash="<?= $this->session->flashdata('message') ?>"></div>
+                <?php endif; ?>
               </div>
             </div>
           </div>
@@ -352,13 +355,13 @@
                             </td>
                             <td>
                               <label class="radio-container">
-                                <input type="radio" name="pg<?= $s['id_soal'] ?>" value="iya" required/>
+                                <input type="radio" name="pg<?= $s['id_soal'] ?>" value="iya" required />
                                 <span class="checkmark"></span>
                               </label>
                             </td>
                             <td>
                               <label class="radio-container">
-                                <input type="radio" name="pg<?= $s['id_soal'] ?>" value="tidak" required/>
+                                <input type="radio" name="pg<?= $s['id_soal'] ?>" value="tidak" required />
                                 <span class="checkmark"></span>
                               </label>
                             </td>
@@ -412,94 +415,9 @@
 <script src="<?= base_url('assets/') ?>js/core/jquery.min.js"></script>
 <script src="<?= base_url('assets/') ?>js/bootstrap4.min.js"></script>
 <script src="<?= base_url('assets/') ?>js/sweetAlert2.js"></script>
-<script>
-  function openTab(evt, tabName) {
-    // Hide all tab content
-    var tabcontents = document.getElementsByClassName("tabcontent");
-    for (var i = 0; i < tabcontents.length; i++) {
-      tabcontents[i].style.display = "none";
-    }
 
-    // Deactivate all tab links
-    var tablinks = document.getElementsByClassName("tablinks");
-    for (var i = 0; i < tablinks.length; i++) {
-      tablinks[i].classList.remove("active");
-    }
-
-    // Show the clicked tab content and activate the clicked tab link
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.classList.add("active");
-  }
-
-  // Show the default tab on page load
-  document.getElementById("tab1").style.display = "block";
-  document.getElementsByClassName("tablinks")[0].classList.add("active");
-</script>
 <script>
   $(function() {
-    $('#btn_simpan').click(function(e) {
-      e.preventDefault()
-      var actionUrl = $('#formRegist').attr('action')
-      var form_data = new FormData($('#formRegist')[0])
-      Swal.fire({
-        title: "Kirim data lamaran anda?",
-        text: "Silahkan cek ulang apabila ada keraguan",
-        imageUrl: '<?= base_url('assets/img/dashboard/vector2.jpeg') ?>',
-        imageWidth: 200,
-        imageHeight: 200,
-        imageAlt: "Custom image",
-        showCancelButton: true,
-        confirmButtonColor: "#121c4a",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Kirim",
-        cancelButtonText: "Batal",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          $('#form_error').html('')
-          $.ajax({
-            type: "POST",
-            url: actionUrl,
-            data: form_data,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-              const res = JSON.parse(response)
-              console.log(res)
-              if (res.status === 'error') {
-                Swal.fire({
-                  title: "Data tidak terkirim",
-                  text: "Sepertinya ada kesalahan dalam pengsisian data anda",
-                  imageUrl: '<?= base_url('assets/img/dashboard/vector3.jpeg') ?>',
-                  imageWidth: 200,
-                  imageHeight: 200,
-                  imageAlt: "Custom image",
-                  showCancelButton: false,
-                  confirmButtonColor: "#121c4a",
-                  confirmButtonText: "Cek Ulang",
-                })
-                $('#form_error').append(`<h1>List error :</h1>`)
-                $.each(res.errors, function(field, error) {
-                  $('#form_error').append(error + '\n');
-                  $('#form_error').removeAttr('hidden')
-                });
-              } else {
-                Swal.fire({
-                  title: "Data telah terkirim",
-                  text: "Silahkan klik tombol dibawah untuk melanjutkan ke tahap berikutnya",
-                  imageUrl: '<?= base_url('assets/img/dashboard/vector3.png') ?>',
-                  imageWidth: 200,
-                  imageHeight: 200,
-                  imageAlt: "Custom image",
-                  showCancelButton: false,
-                  confirmButtonColor: "#121c4a",
-                  confirmButtonText: "Lanjut Ke Tes Soal",
-                })
-              }
-            }
-          });
-        }
-      });
-
-    })
+    $('.flashdata').data('flash')
   })
 </script>

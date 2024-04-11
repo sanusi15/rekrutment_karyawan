@@ -41,7 +41,9 @@
                             <i class="ni business_briefcase-24 mr-2"></i>Posisi Lamar - <?= $data['posisi']; ?>
                         </div>
                         <div class="h5 mt-4">
-                            <i class="ni business_briefcase-24 mr-2"></i><a target="_blank" href="<?= base_url('assets/img/cv/' . $data['cv']); ?>" class="btn btn-primary">Lihat CV</a>
+                            <i class="ni business_briefcase-24 mr-2"></i><a target="_blank" href="<?= base_url('assets/img/ktp/' . $data['ktp']); ?>" class="btn btn-primary">KTP</a>
+                            <i class="ni business_briefcase-24 mr-2"></i><a target="_blank" href="<?= base_url('assets/img/cv/' . $data['cv']); ?>" class="btn btn-danger">Lihat CV</a>
+                            <i class="ni business_briefcase-24 mr-2"></i><a target="_blank" href="<?= base_url('assets/img/kir/' . $data['kir']); ?>" class="btn btn-success">KIR Dokter</a>
                         </div>
                     </div>
                 </div>
@@ -50,7 +52,7 @@
                 <div class="col-md-12 mb-4">
                     <a href="<?= base_url('admin/jawabanTes/' . $data['id_pelamar']); ?>" class="btn btn-primary w-100">Lihat Jawaban Tes</a>
                 </div>
-                <?php if ($data['status_lamaran']== 'Proses Seleksi') : ?>
+                <?php if ($data['status_lamaran'] == 'Proses Seleksi') : ?>
                     <div class="col-md-6">
                         <a href="<?= base_url('admin/konfirmasiLamaran/' . $data['id_pelamar'] . '/1'); ?>" class="btn btn-success w-100">Terima</a>
                     </div>
@@ -59,7 +61,7 @@
                     </div>
                 <?php else : ?>
                     <div class="col-md-12">
-                        <a href="#" class="btn btn-<?=($data['status_lamaran'] == 'Diterima' ? 'success' : 'danger')?> w-100"><?= $data['status_lamaran']; ?></a>
+                        <a href="#" class="btn btn-<?= ($data['status_lamaran'] == 'Diterima' ? 'success' : 'danger') ?> w-100"><?= $data['status_lamaran']; ?></a>
                     </div>
                 <?php endif; ?>
             </div>
@@ -207,6 +209,15 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-username">Alasan Berhenti</label>
                                             <input type="text" disabled id="input-username" class="form-control" value="<?= $d['alasan_berhenti']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <?php if ($d['sertifikat'] != '') : ?>
+                                                <a target="_blank" href="<?= site_url('assets/img/sertifikat/' . $d['sertifikat']) ?>" class="btn btn-success">Lihat Sertifikat</a>
+                                            <?php else : ?>
+                                                <a href="javascript:void(0)" class="btn btn-secondary">Tidak ada sertifikat</a>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>

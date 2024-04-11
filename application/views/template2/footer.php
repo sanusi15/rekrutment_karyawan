@@ -22,7 +22,6 @@
 <script>
     $(function() {
         var flash = $('.flashdata').data('flash')
-        console.log(flash)
         if (flash != undefined) {
             Swal.fire({
                 title: "Berhasil",
