@@ -83,7 +83,7 @@
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                 <a class="dropdown-item" href="<?= base_url('admin/editloker/' . $l['id_loker']); ?>">Detail/Ubah</a>
-                                                <a class="dropdown-item" href="">Hapus</a>
+                                                <a class="dropdown-item" href="<?= site_url('admin/deleteLoker/' . $l['id_loker']) ?>">Hapus</a>
                                             </div>
                                         </div>
                                     </td>

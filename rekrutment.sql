@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Jan 2024 pada 08.42
--- Versi server: 10.4.17-MariaDB
--- Versi PHP: 7.2.34
+-- Generation Time: Apr 11, 2024 at 03:27 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jawaban_pelamar`
+-- Table structure for table `jawabanpg_pelamar`
+--
+
+CREATE TABLE `jawabanpg_pelamar` (
+  `id_jawabanpg` int(11) NOT NULL,
+  `id_pelamar` varchar(10) NOT NULL,
+  `id_pg` varchar(10) NOT NULL,
+  `jawaban_pg` varchar(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jawabanpg_pelamar`
+--
+
+INSERT INTO `jawabanpg_pelamar` (`id_jawabanpg`, `id_pelamar`, `id_pg`, `jawaban_pg`) VALUES
+(3, 'PL002', 'PG001', 'C'),
+(4, 'PL002', 'PG002', 'B'),
+(5, 'PL002', 'PG003', 'A'),
+(6, 'PL002', 'PG004', 'D');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jawaban_pelamar`
 --
 
 CREATE TABLE `jawaban_pelamar` (
@@ -36,19 +59,19 @@ CREATE TABLE `jawaban_pelamar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `jawaban_pelamar`
+-- Dumping data for table `jawaban_pelamar`
 --
 
 INSERT INTO `jawaban_pelamar` (`id_jawaban`, `id_pelamar`, `id_soal`, `isi_jawaban`, `isi_keterangan`) VALUES
-(15, 'PL001', 1, 'iya', 'Alasan nya balabalal'),
-(16, 'PL001', 3, 'tidak', 'Yayaa ini alasan'),
-(17, 'PL002', 1, 'iya', 'dk kags kgasyk aksgkag akhkhkhk eyigj '),
-(18, 'PL002', 3, 'iya', 'ags ye eyta ajytg wyjg ');
+(21, 'PL001', 1, 'iya', 'Lorem ipsum doler is amet'),
+(22, 'PL001', 3, 'tidak', 'amet consectretur adipisicing elit.'),
+(23, 'PL002', 1, 'tidak', 'asd'),
+(24, 'PL002', 3, 'tidak', 'sad');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `loker`
+-- Table structure for table `loker`
 --
 
 CREATE TABLE `loker` (
@@ -63,18 +86,16 @@ CREATE TABLE `loker` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `loker`
+-- Dumping data for table `loker`
 --
 
 INSERT INTO `loker` (`id_loker`, `posisi`, `jabatan`, `minimum_pendidikan`, `persyaratan`, `gaji`, `status`, `img`) VALUES
-(1, 'Software Enginer', 'Staff', 'S1', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos facilis vitae expedita sed officiis in tempora vero doloribus accusamus et?', '5.000.000 - 7.000.000', 'non aktif', 'loker6.jpg'),
-(2, 'Web Developer', 'Manager', 'S1', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos facilis vitae expedita sed officiis in tempora vero doloribus accusamus et?', '8.000.000 - 10.000.000', 'aktif', 'loker7.jpg'),
-(3, 'HRD', 'Staff HRG', 'S2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ', '5.000.000 - 7.000.000', 'aktif', 'loker5.jpg');
+(4, 'Accounting', 'Staff', 'S1', 'asdasdasjkdkasdjk', '6000000-700000', 'aktif', 'loker8.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pelamar`
+-- Table structure for table `pelamar`
 --
 
 CREATE TABLE `pelamar` (
@@ -96,21 +117,49 @@ CREATE TABLE `pelamar` (
   `cv` text NOT NULL,
   `foto` text NOT NULL,
   `id_loker` int(11) NOT NULL,
-  `status_lamaran` varchar(20) NOT NULL
+  `status_lamaran` varchar(20) NOT NULL,
+  `kir` varchar(255) NOT NULL,
+  `ktp` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pelamar`
+-- Dumping data for table `pelamar`
 --
 
-INSERT INTO `pelamar` (`id_pelamar`, `tgl_lamar`, `nama_lengkap`, `no_ktp`, `email`, `tempat_lahir`, `tgl_lahir`, `gender`, `no_hp`, `status_kawin`, `kewarganegaraan`, `agama`, `no_npwp`, `alamat_asli`, `alamat_domisili`, `cv`, `foto`, `id_loker`, `status_lamaran`) VALUES
-('PL001', '2024-01-15 15:55:37', 'Ahmad', '1229382839192903', 'ahmad@gmail.com', 'Lebak', '2001-01-01', 'lk', '08567876542', 'lajang', 'WNI', 'islam', '12312312312', 'Cipinang, Jatinegara, Jakarta Timur', 'Lebak-Banten', 'CV_PL001.jpg', 'foto_PL001.jpeg', 2, 'Proses Seleksi'),
-('PL002', '2024-01-17 16:19:57', 'Lionel Messi', '2239352839192902', 'messi@gmail.com', 'Barcelona', '1996-02-20', 'lk', '08567876283', 'lajang', 'WNI', 'islam', '32312312312', 'Alamat nya sesuai KTP', 'Tempat tinggal sekaranh', 'CV_PL002.jpg', 'foto_PL002.jpeg', 1, 'Proses Seleksi');
+INSERT INTO `pelamar` (`id_pelamar`, `tgl_lamar`, `nama_lengkap`, `no_ktp`, `email`, `tempat_lahir`, `tgl_lahir`, `gender`, `no_hp`, `status_kawin`, `kewarganegaraan`, `agama`, `no_npwp`, `alamat_asli`, `alamat_domisili`, `cv`, `foto`, `id_loker`, `status_lamaran`, `kir`, `ktp`) VALUES
+('PL001', '2024-04-10 18:43:31', 'Tes', '1234373636718', 'sopyan@gmail.com', 'Arab', '2023-03-10', 'pr', '08583918383', 'Menikah', 'WNA', 'kristen', '1212312121', 'Alamat sesuai k=KTP', 'Aalamat sesuai domisaili', 'CV_PL001.png', 'foto_PL001.png', 4, 'Proses Seleksi', 'kir_PL001.pdf', 'ktp_PL001.pdf'),
+('PL002', '2024-04-10 19:16:54', 'Tes 2', '1234373636711', 'tessiswa@gmail.com', 'Cilegon', '2023-03-10', 'pr', '08583918383', 'Menikah', 'WNA', 'kristen', '1212312121', 'askjdak', ' askdhkhk', 'CV_PL002.png', 'foto_PL002.png', 4, 'Proses Seleksi', 'kir_PL002.pdf', 'ktp_PL002.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `riwayatkerja_pelamar`
+-- Table structure for table `pg`
+--
+
+CREATE TABLE `pg` (
+  `id_pg` varchar(10) NOT NULL,
+  `soal_pg` varchar(255) NOT NULL,
+  `a` varchar(255) NOT NULL,
+  `b` varchar(255) NOT NULL,
+  `c` varchar(255) NOT NULL,
+  `d` varchar(255) NOT NULL,
+  `kunci_jawaban` varchar(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pg`
+--
+
+INSERT INTO `pg` (`id_pg`, `soal_pg`, `a`, `b`, `c`, `d`, `kunci_jawaban`) VALUES
+('PG001', 'Siapa nama bapak kamu?', 'Udin', 'Mahfud', 'Imin', 'Anis', 'C'),
+('PG002', 'Kenapa jumlah hari ada 7?', 'Gatau', 'Karena anu', 'Hahaha', 'Nuhanianin nu', 'A'),
+('PG003', 'Siapa penemu lampu?', 'Joko', 'Dino', 'Ayama', 'Hahaha', 'A'),
+('PG004', 'Dimana letak rumah pak rt?', 'Di rumahnya', 'Di bawah tanah', 'Di mekkah', 'Di sini', 'D');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `riwayatkerja_pelamar`
 --
 
 CREATE TABLE `riwayatkerja_pelamar` (
@@ -119,21 +168,23 @@ CREATE TABLE `riwayatkerja_pelamar` (
   `nama_perusahaan` varchar(50) NOT NULL,
   `posisi` varchar(50) NOT NULL,
   `lama_kerja` varchar(10) NOT NULL,
-  `alasan_berhenti` text NOT NULL
+  `alasan_berhenti` text NOT NULL,
+  `sertifikat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `riwayatkerja_pelamar`
+-- Dumping data for table `riwayatkerja_pelamar`
 --
 
-INSERT INTO `riwayatkerja_pelamar` (`id_pengalamankerja`, `id_pelamar`, `nama_perusahaan`, `posisi`, `lama_kerja`, `alasan_berhenti`) VALUES
-(14, 'PL001', 'Pt. Bissmillahirrahmanirrahim', 'Manager', '3 Tahun', 'Gajinya Kecil'),
-(15, 'PL001', 'Pt. Nusantara', 'Direktur', '2 Tahun', '-');
+INSERT INTO `riwayatkerja_pelamar` (`id_pengalamankerja`, `id_pelamar`, `nama_perusahaan`, `posisi`, `lama_kerja`, `alasan_berhenti`, `sertifikat`) VALUES
+(32, 'PL001', 'Pt. Haha hihi', 'Direktur', '2 Tahun', 'Bosen', 'PL001-at-0Invoice-1708480363.pdf'),
+(33, 'PL001', 'PT. Salawasna', 'Manager', '3 Tahun', 'Gabut', ''),
+(34, 'PL001', 'PT. Perusahaan 3', 'Staff', '1 Tahun', 'Gaji Kecil', 'PL001-at-2Invoice-1708480363.pdf');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `soal`
+-- Table structure for table `soal`
 --
 
 CREATE TABLE `soal` (
@@ -142,7 +193,7 @@ CREATE TABLE `soal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `soal`
+-- Dumping data for table `soal`
 --
 
 INSERT INTO `soal` (`id_soal`, `isi_soal`) VALUES
@@ -152,7 +203,7 @@ INSERT INTO `soal` (`id_soal`, `isi_soal`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -164,88 +215,107 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id_user`, `username`, `password`, `id_pelamar`, `level`) VALUES
 (1, 'admin@gmail.com', '123', NULL, 1),
 (6, 'staffhrd@gmail.com', '123', NULL, 2),
-(7, 'pelamar01', '123', 'PL001', 3),
-(8, 'messi123', '123', 'PL002', 3);
+(19, 'tes12345', '12345678', 'PL001', 3),
+(20, 'tes12341', '12345678', 'PL002', 3),
+(21, 'santoso123', '12345678', 'PL002', 3);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `jawaban_pelamar`
+-- Indexes for table `jawabanpg_pelamar`
+--
+ALTER TABLE `jawabanpg_pelamar`
+  ADD PRIMARY KEY (`id_jawabanpg`);
+
+--
+-- Indexes for table `jawaban_pelamar`
 --
 ALTER TABLE `jawaban_pelamar`
   ADD PRIMARY KEY (`id_jawaban`);
 
 --
--- Indeks untuk tabel `loker`
+-- Indexes for table `loker`
 --
 ALTER TABLE `loker`
   ADD PRIMARY KEY (`id_loker`);
 
 --
--- Indeks untuk tabel `pelamar`
+-- Indexes for table `pelamar`
 --
 ALTER TABLE `pelamar`
   ADD PRIMARY KEY (`id_pelamar`);
 
 --
--- Indeks untuk tabel `riwayatkerja_pelamar`
+-- Indexes for table `pg`
+--
+ALTER TABLE `pg`
+  ADD PRIMARY KEY (`id_pg`);
+
+--
+-- Indexes for table `riwayatkerja_pelamar`
 --
 ALTER TABLE `riwayatkerja_pelamar`
   ADD PRIMARY KEY (`id_pengalamankerja`);
 
 --
--- Indeks untuk tabel `soal`
+-- Indexes for table `soal`
 --
 ALTER TABLE `soal`
   ADD PRIMARY KEY (`id_soal`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `jawaban_pelamar`
+-- AUTO_INCREMENT for table `jawabanpg_pelamar`
+--
+ALTER TABLE `jawabanpg_pelamar`
+  MODIFY `id_jawabanpg` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `jawaban_pelamar`
 --
 ALTER TABLE `jawaban_pelamar`
-  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_jawaban` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT untuk tabel `loker`
+-- AUTO_INCREMENT for table `loker`
 --
 ALTER TABLE `loker`
-  MODIFY `id_loker` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_loker` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `riwayatkerja_pelamar`
+-- AUTO_INCREMENT for table `riwayatkerja_pelamar`
 --
 ALTER TABLE `riwayatkerja_pelamar`
-  MODIFY `id_pengalamankerja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pengalamankerja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
--- AUTO_INCREMENT untuk tabel `soal`
+-- AUTO_INCREMENT for table `soal`
 --
 ALTER TABLE `soal`
   MODIFY `id_soal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

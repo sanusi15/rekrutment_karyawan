@@ -33,7 +33,7 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <button type="button" class="mb-0 btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal">Tambah Data</>
+          <button type="button" class="mb-0 btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#modalAdd">Tambah Data</>
         </div>
         <div class="card-body">
           <div class="pl-lg-4">
@@ -87,10 +87,58 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Modal add -->
+  <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
       <form action="<?= base_url('admin/savePG'); ?>" method="POST">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+          </div>
+          <div class="modal-body">
+            <div class="mb-2">
+              <label for="">Soal</label>
+              <input type="text" class="form-control" name="soal" id="soal">
+              <input type="hidden" class="form-control" name="id_pg" id="id_pg">
+            </div>
+            <div class="mb-2">
+              <label for="">Jawaban A</label>
+              <input type="text" class="form-control" name="a" id="a">
+            </div>
+            <div class="mb-2">
+              <label for="">Jawaban B</label>
+              <input type="text" class="form-control" name="b" id="b">
+            </div>
+            <div class="mb-2">
+              <label for="">Jawaban C</label>
+              <input type="text" class="form-control" name="c" id="c">
+            </div>
+            <div class="mb-2">
+              <label for="">Jawaban D</label>
+              <input type="text" class="form-control" name="d" id="d">
+            </div>
+            <div class="mb-2">
+              <label for="">Kunci Jawaban</label>
+              <select class="form-control" name="kunci" id="kunci">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+                <option>D</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal edit -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <form action="<?= base_url('admin/updatePG'); ?>" method="POST">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
@@ -167,7 +215,7 @@
             modal.find('form').attr('src', urlUpdate)
           }
         })
-        $('.modal').modal('show')
+        $('#exampleModal').modal('show')
       })
 
       $('.btn-simpan').click(function(e) {
@@ -205,7 +253,7 @@
           if (result.isConfirmed) {
             $.ajax({
               method: 'POST',
-              url: '<?= base_url('admin/hapusSoal'); ?>',
+              url: '<?= base_url('admin/hapusPG'); ?>',
               data: {
                 id: id
               },

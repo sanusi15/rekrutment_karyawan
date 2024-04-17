@@ -138,6 +138,13 @@ class Admin extends CI_Controller
 		}
 	}
 
+	public function deleteLoker($id)
+	{
+		$this->db->query("DELETE FROM loker WHERE id_loker = '$id'");
+		$this->session->set_flashdata('msg', 'Data berhasil dihapus');
+		redirect('admin/loker');
+	}
+
 	public function pelamar()
 	{
 		$data['title'] = 'Pilih Lowongan Kerja';
@@ -274,12 +281,31 @@ class Admin extends CI_Controller
 	public function updatePG()
 	{
 		$id = $this->input->post('id_pg');
-		var_dump($id);
-		die;
 		$soal = $this->input->post('soal');
-		$this->db->set('isi_soal', $soal);
-		$this->db->where('id_soal', $id);
-		$this->db->update('soal');
+		$a = $this->input->post('a');
+		$b = $this->input->post('b');
+		$c = $this->input->post('c');
+		$d = $this->input->post('d');
+		$kunci = $this->input->post('kunci');
+		$data = [
+			'soal_pg' => $soal,
+			'a' => $a,
+			'b' => $b,
+			'c' => $c,
+			'd' => $d,
+			'kunci_jawaban' => $kunci,
+		];
+		$this->db->where('id_pg', $id);
+		$this->db->update('pg', $data);
+		$this->session->set_flashdata('msg', 'Data berhasil diubah');
+		redirect('admin/listPG');
+	}
+
+	public function hapusPG()
+	{
+		$id = $this->input->post('id');
+		$this->db->where('id_pg', $id);
+		$this->db->delete('pg');
 		echo 'berhasil';
 	}
 
@@ -301,6 +327,8 @@ class Admin extends CI_Controller
 		$tglMulai = $this->input->post('date1');
 		$tglSelesai = $this->input->post('date2');
 		$data = $this->AdminModel->get_jumlah_pelamar($tglMulai, $tglSelesai)->result_array();
+		// var_dump($data);
+		// die;
 
 		$this->load->library('pdfgenerator');
 
