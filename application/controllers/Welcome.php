@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -23,10 +24,10 @@ class Welcome extends CI_Controller {
 		$this->session->unset_userdata('id_loker');
 		$data['loker'] = $this->db->get('loker')->result_array();
 		$this->load->view('template2/header');
-		$this->load->view('welcome_message',$data);
+		$this->load->view('welcome_message', $data);
 		$this->load->view('template2/footer');
 	}
-	
+
 	public function loker()
 	{
 		$this->load->view('template2/header');
